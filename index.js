@@ -19,27 +19,32 @@ module.exports = function argsert (typeConfig, ...args) {
   }
 
   args.forEach((arg, index) => {
-    const searchElement = Array.isArray(arg) ? 'array' : arg === null ? 'null' : typeof arg;
+    const observedType = Array.isArray(arg) ? 'array' : arg === null ? 'null' : typeof arg;
 
     if ('required' in types[index]) {
       const required = types[index].required;
 
-      if (required.indexOf(searchElement) < 0 && required.indexOf('*') < 0) {
-        throw new Error(
-          `Invalid first argument. Expected ${expectedTypes(types[index], 'required')} but received ${searchElement}.`
-        );
+      if (required.indexOf(observedType) < 0 && required.indexOf('*') < 0) {
+        throw new Error(invalidArgMessage(positionName(index), expectedTypes(types[index], 'required'), observedType));
       }
     } else if ('optional' in types[index]) {
-      if (types[index].optional.indexOf(searchElement) < 0) {
-        throw new Error(
-          `Invalid first argument. Expected ${expectedTypes(types[index], 'optional')} but received ${searchElement}.`
-        );
+      if (types[index].optional.indexOf(observedType) < 0) {
+        throw new Error(invalidArgMessage(positionName(index), expectedTypes(types[index], 'optional'), observedType));
       }
     }
   });
 
   return true;
 };
+
+function invalidArgMessage(position, expected, observed) {
+  return `Invalid ${position} argument. Expected ${expected} but received ${observed}.`;
+}
+
+function positionName(index) {
+  const positionNames = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
+  return positionNames[index] || 'manyith';
+}
 
 function getTypes (typeConfig) {
   return typeConfig.split(' ').reduce((result, str, index) => {

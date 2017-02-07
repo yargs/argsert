@@ -41,13 +41,6 @@ test('throws an exception if too many arguments are provided', t => {
   );
 });
 
-test.skip('configures function to accept 0 parameters, if only arguments object is provided', t => {
-  t.throws(
-    (bar = 99) => argsert(...arguments),
-    /A type configuration string for your arguments is required./
-  );
-});
-
 test('allows for any type if * is provided', t => {
   t.true(argsert('<*>', 'bar'));
 });
@@ -65,4 +58,11 @@ test('should not ignore undefined values that are not trailing', t => {
 
 test('supports null as special type', t => {
   t.true(argsert('<null>', null));
+});
+
+test.skip('configures function to accept 0 parameters, if only arguments object is provided', t => {
+  t.throws(
+    (bar = 99) => argsert(...arguments),
+    /A type configuration string for your arguments is required./
+  );
 });

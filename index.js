@@ -26,26 +26,17 @@ module.exports = function argsert (typeConfig, ...args) {
       const required = types[index].required;
 
       if (required.indexOf(observedType) < 0 && required.indexOf('*') < 0) {
-        throw new Error(invalidArgMessage(positionName(index), expectedTypes(types[index], 'required'), observedType));
+        throw new TypeError(invalidArgMessage(positionName(index), expectedTypes(types[index], 'required'), observedType));
       }
-    } else if ('optional' in types[index]) {
-      if (types[index].optional.indexOf(observedType) < 0) {
-        throw new Error(invalidArgMessage(positionName(index), expectedTypes(types[index], 'optional'), observedType));
-      }
+    }
+
+    if (('optional' in types[index]) && types[index].optional.indexOf(observedType) < 0) {
+      throw new TypeError(invalidArgMessage(positionName(index), expectedTypes(types[index], 'optional'), observedType));
     }
   });
 
   return true;
 };
-
-function invalidArgMessage (position, expected, observed) {
-  return `Invalid ${position} argument. Expected ${expected} but received ${observed}.`;
-}
-
-function positionName (index) {
-  const positionNames = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
-  return positionNames[index] || 'manyith';
-}
 
 function getTypes (typeConfig) {
   return typeConfig.split(' ').reduce((result, str, index) => {
@@ -64,9 +55,18 @@ function getTypes (typeConfig) {
     } else if (str === '') {
       return result;
     } else {
-      throw new Error(`invalid type config at pos: ${index}`);
+      throw new Error(`Invalid type config in the ${positionName(index)} position.`);
     }
   }, {});
+}
+
+function invalidArgMessage (position, expected, observed) {
+  return `Invalid ${position} argument. Expected ${expected} but received ${observed}.`;
+}
+
+function positionName (index) {
+  const positionNames = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
+  return positionNames[index] || 'manyith';
 }
 
 function expectedTypes (types, kind) {

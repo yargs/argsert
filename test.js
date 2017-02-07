@@ -74,3 +74,24 @@ test('allows no config with no arguments provided', t => {
 test.failing('works correctly with empty config', t => {
   t.true(argsert(''));
 });
+
+test.skip('throws when wildcard is used in optional configuration', t => {
+  t.throws(
+    () => argsert('[*]', 'bar'),
+    /Invalid type config in the first position./
+  );
+});
+
+test('throws when the optional config has broken syntax', t => {
+  t.throws(
+    () => argsert('<*> [foo||bar]', 'baz', 'boo'),
+    /Invalid type config in the second position./
+  );
+});
+
+test('throws when required config has broken syntax', t => {
+  t.throws(
+    () => argsert('[string] <* joker *>', 'baz', 'scarecrow'),
+    /Invalid type config in the second position./
+  );
+});

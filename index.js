@@ -2,7 +2,8 @@
 
 module.exports = function argsert (typeConfig, ...args) {
   if (typeof typeConfig !== 'string' || (!isRequired(typeConfig) && !isOptional(typeConfig))) {
-    throw new Error('A type configuration string for your arguments is required.');
+    args = [typeConfig];
+    typeConfig = '';
   }
 
   const types = getTypes(typeConfig);
@@ -37,11 +38,11 @@ module.exports = function argsert (typeConfig, ...args) {
   return true;
 };
 
-function invalidArgMessage(position, expected, observed) {
+function invalidArgMessage (position, expected, observed) {
   return `Invalid ${position} argument. Expected ${expected} but received ${observed}.`;
 }
 
-function positionName(index) {
+function positionName (index) {
   const positionNames = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
   return positionNames[index] || 'manyith';
 }
@@ -60,6 +61,8 @@ function getTypes (typeConfig) {
           required: str.split('|').map(s => s.replace('<', '').replace('>', ''))
         }
       });
+    } else if (str === '') {
+      return result;
     } else {
       throw new Error(`invalid type config at pos: ${index}`);
     }

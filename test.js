@@ -60,9 +60,17 @@ test('supports null as special type', t => {
   t.true(argsert('<null>', null));
 });
 
-test.skip('configures function to accept 0 parameters, if only arguments object is provided', t => {
+test('configures function to accept 0 parameters, if only arguments are provided', t => {
   t.throws(
-    (bar = 99) => argsert(...arguments),
-    /A type configuration string for your arguments is required./
+    () => argsert(99),
+    /Too many arguments provided. Expected max 0 but received 1./
   );
+});
+
+test('allows no config with no arguments provided', t => {
+  t.true(argsert());
+});
+
+test.failing('works correctly with empty config', t => {
+  t.true(argsert(''));
 });

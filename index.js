@@ -21,17 +21,19 @@ module.exports = function argsert (typeConfig, ...args) {
 
   args.forEach((arg, index) => {
     const observedType = Array.isArray(arg) ? 'array' : arg === null ? 'null' : typeof arg;
+    const typesAtIndex = types[index];
+    const errorMessage = invalidArgMessage.bind(this, positionName(index), typesAtIndex, observedType);
 
-    if ('required' in types[index]) {
-      const required = types[index].required;
+    if ('required' in typesAtIndex) {
+      const required = typesAtIndex.required;
 
       if (required.indexOf(observedType) < 0 && required.indexOf('*') < 0) {
-        throw new TypeError(invalidArgMessage(positionName(index), expectedTypes(types[index], 'required'), observedType));
+        throw new TypeError(errorMessage('required'));
       }
     }
 
-    if (('optional' in types[index]) && types[index].optional.indexOf(observedType) < 0) {
-      throw new TypeError(invalidArgMessage(positionName(index), expectedTypes(types[index], 'optional'), observedType));
+    if (('optional' in typesAtIndex) && typesAtIndex.optional.indexOf(observedType) < 0) {
+      throw new TypeError(errorMessage('optional'));
     }
   });
 
@@ -60,8 +62,8 @@ function getTypes (typeConfig) {
   }, {});
 }
 
-function invalidArgMessage (position, expected, observed) {
-  return `Invalid ${position} argument. Expected ${expected} but received ${observed}.`;
+function invalidArgMessage (position, types, observed, kind) {
+  return `Invalid ${position} argument. Expected ${expectedTypes(types, kind)} but received ${observed}.`;
 }
 
 function positionName (index) {

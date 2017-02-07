@@ -1,0 +1,24 @@
+{
+  "name": "argsert",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.18.1",
+    "coveralls": "^2.11.16",
+    "nyc": "^10.1.2",
+    "semistandard": "^9.2.1"
+  },
+  "scripts": {
+    "pretest": "semistandard",
+    "test": "nyc ava"
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "lcov"
+    ],
+    "check-coverage": true
+  }
+}

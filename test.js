@@ -12,7 +12,6 @@ test('throws exception if wrong type is provided for optional argument', t => {
     () => argsert('[object|number]', 'hello'),
     /Invalid first argument. Expected object or number but received string./
   );
-
   t.throws(
     argsertPromise('[object|number]', 'hello'),
     /Invalid first argument. Expected object or number but received string./
@@ -82,11 +81,8 @@ test('allows empty configuration to accept no arguments', t => {
   t.true(argsert(''));
 });
 
-test.skip('throws when wildcard is used in optional configuration', t => {
-  t.throws(
-    () => argsert('[*]', 'bar'),
-    /Invalid type config in the first position./
-  );
+test('allows wildcard to be used in optional configuration', async t => {
+  t.true(await argsertPromise('[string] [*]', 'foo', {}));
 });
 
 test('throws when the optional config has broken syntax', t => {

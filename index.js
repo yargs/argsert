@@ -32,8 +32,12 @@ module.exports = function argsert (typeConfig, ...args) {
       }
     }
 
-    if (('optional' in typesAtIndex) && typesAtIndex.optional.indexOf(observedType) < 0) {
-      throw new TypeError(errorMessage('optional'));
+    if ('optional' in typesAtIndex) {
+      const optional = typesAtIndex.optional;
+
+      if (typesAtIndex.optional.indexOf('*') < 0 && optional.indexOf(observedType) < 0) {
+        throw new TypeError(errorMessage('optional'));
+      }
     }
   });
 
@@ -84,7 +88,7 @@ function expectedTypes (types, kind) {
 }
 
 function isOptional (arg) {
-  return arg.match(/^\[(\w+)((?:\|(\w+))*?)]/);
+  return arg.match(/^\[(\w+|\*)((?:\|(\w+))*?)]/);
 }
 
 function isRequired (arg) {

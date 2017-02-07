@@ -35,7 +35,7 @@ module.exports = function argsert (typeConfig, ...args) {
     if ('optional' in typesAtIndex) {
       const optional = typesAtIndex.optional;
 
-      if (typesAtIndex.optional.indexOf('*') < 0 && optional.indexOf(observedType) < 0) {
+      if (optional.indexOf('*') < 0 && optional.indexOf(observedType) < 0) {
         throw new TypeError(errorMessage('optional'));
       }
     }

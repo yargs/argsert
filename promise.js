@@ -2,11 +2,10 @@
 
 const argsert = require('./');
 
-module.exports = function argsertPromise () {
-  const allArgs = arguments;
+module.exports = function argsertPromise (...args) {
   return new Promise((resolve, reject) => {
     try {
-      return resolve(argsert(...allArgs));
+      return resolve(argsert(...args));
     } catch (err) {
       return reject(err);
     }

@@ -9,7 +9,7 @@ module.exports = function argsert (typeConfig, ...args) {
   const types = getTypes(typeConfig);
   const configuredKeys = Object.keys(types);
   const numRequired = configuredKeys.filter(k => 'required' in types[k]).length;
-  args = args[args.length - 1] === undefined ? args.filter(v => v !== undefined) : args;
+  args = compactArgs(args);
 
   if (args.length < numRequired) {
     throw new Error(`Not enough arguments provided. Expected ${numRequired} but received ${args.length}.`);
@@ -60,6 +60,14 @@ function getTypes (typeConfig) {
       throw new Error(`Invalid type config in the ${positionName(index)} position.`);
     }
   }, {});
+}
+
+function compactArgs (args) {
+  const lastArg = args[args.length - 1];
+  if (lastArg === undefined || lastArg === '') {
+    return args.filter(arg => arg !== undefined && arg !== '');
+  }
+  return args;
 }
 
 function invalidArgMessage (position, types, observed, kind) {

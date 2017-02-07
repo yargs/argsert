@@ -78,7 +78,7 @@ test('allows no config with no arguments provided', t => {
   t.true(argsert());
 });
 
-test.failing('works correctly with empty config', t => {
+test('allows empty configuration to accept no arguments', t => {
   t.true(argsert(''));
 });
 

@@ -94,7 +94,7 @@ test('throws when the optional config has broken syntax', t => {
 
 test('throws when required config has broken syntax', t => {
   t.throws(
-    () => argsert('[string] <* joker *>', 'baz', 'scarecrow'),
+    () => argsert('[string] <* joker *> [number]', 'baz', 'scarecrow'),
     /Invalid type config in the second position./
   );
 });

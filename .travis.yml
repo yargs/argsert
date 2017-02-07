@@ -2,8 +2,12 @@ sudo: false
 language: node_js
 node_js:
   - "stable"
-  
+  - 6
+
 cache: yarn
-  
-after_success:
-  - "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+
+env:
+  global:
+    COVERALLS_PARALLEL: true
+
+after_success: "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"

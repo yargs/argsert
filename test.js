@@ -1,6 +1,6 @@
 import test from 'ava';
-import argsert from './';
-import argsertPromise from './promise';
+import argsert from './lib/';
+import argsertPromise from './lib/promise';
 
 test('does not throw exception if optional argument is not provided', async t => {
   t.true(argsert('[object]'));

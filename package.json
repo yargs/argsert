@@ -1,17 +1,23 @@
 {
   "name": "argsert",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {},
+  "files": [
+    "lib"
+  ],
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.18.1",
+    "babel-cli": "^6.22.2",
     "coveralls": "^2.11.16",
     "nyc": "^10.1.2",
     "semistandard": "^9.2.1"
   },
   "scripts": {
-    "pretest": "semistandard",
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm test",
+    "pretest": "semistandard && npm run build",
     "test": "nyc ava"
   },
   "nyc": {

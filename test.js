@@ -98,3 +98,15 @@ test('throws when required config has broken syntax', t => {
     /Invalid type config in the second position./
   );
 });
+
+test('allows error in the required config', t => {
+  const error = new Error('robin');
+
+  t.true(argsert('<error>', error));
+});
+
+test('allows error in the optional config', t => {
+  const error = new Error('batgirl');
+
+  t.true(argsert('[error]', error));
+});

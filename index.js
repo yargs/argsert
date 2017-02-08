@@ -20,7 +20,11 @@ module.exports = function argsert (typeConfig, ...args) {
   }
 
   args.forEach((arg, index) => {
-    const observedType = Array.isArray(arg) ? 'array' : arg === null ? 'null' : typeof arg;
+    const observedType = Array.isArray(arg) ? 'array'
+      : arg === null ? 'null'
+        : arg instanceof Error ? 'error'
+          : typeof arg;
+
     const typesAtIndex = types[index];
     const errorMessage = invalidArgMessage.bind(this, positionName(index), typesAtIndex, observedType);
 

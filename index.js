@@ -25,7 +25,8 @@ module.exports = function argsert (typeConfig, ...args) {
         : arg === null ? 'null'
           : arg instanceof Error ? 'error'
             : isPromise(arg) ? 'promise'
-              : typeof arg;
+              : Buffer.isBuffer(arg) ? 'buffer'
+                : typeof arg;
 
     const typesAtIndex = types[index];
     const errorMessage = invalidArgMessage.bind(this, positionName(index), typesAtIndex, observedType);

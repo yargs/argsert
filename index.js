@@ -20,10 +20,12 @@ module.exports = function argsert (typeConfig, ...args) {
   }
 
   args.forEach((arg, index) => {
-    const observedType = Array.isArray(arg) ? 'array'
-      : arg === null ? 'null'
-        : arg instanceof Error ? 'error'
-          : typeof arg;
+    const observedType =
+      Array.isArray(arg) ? 'array'
+        : arg === null ? 'null'
+          : arg instanceof Error ? 'error'
+            : isPromise(arg) ? 'promise'
+              : typeof arg;
 
     const typesAtIndex = types[index];
     const errorMessage = invalidArgMessage.bind(this, positionName(index), typesAtIndex, observedType);
@@ -97,4 +99,9 @@ function isOptional (arg) {
 
 function isRequired (arg) {
   return arg.match(/^<(\w+|\*)((?:\|(\w+))*?)>/);
+}
+
+// 'borrowed' from: https://github.com/then/is-promise/commit/ed0eaa4dec17597f0dae892a0472a9b7f459320d
+function isPromise (obj) {
+  return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }

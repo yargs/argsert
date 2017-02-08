@@ -105,8 +105,16 @@ test('allows error in the required config', t => {
   t.true(argsert('<error>', error));
 });
 
-test('allows error in the optional config', t => {
-  const error = new Error('batgirl');
+test('allows another kind of error in the optional config', t => {
+  const error = new RangeError('batgirl');
 
   t.true(argsert('[error]', error));
+});
+
+test('allows promise in the required config', t => {
+  t.true(argsert('<promise>', Promise.resolve()));
+});
+
+test('allows rejected promise in the optional config', t => {
+  t.true(argsert('[promise]', Promise.reject(new Error('no timeout')).catch(() => {})));
 });

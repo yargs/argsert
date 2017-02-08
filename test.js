@@ -118,3 +118,23 @@ test('allows promise in the required config', t => {
 test('allows rejected promise in the optional config', t => {
   t.true(argsert('[promise]', Promise.reject(new Error('no timeout')).catch(() => {})));
 });
+
+test('the arguments object can be passed in, spread', t => {
+  function foo () {
+    return argsert('[string|number] <object>', ...arguments);
+  }
+
+  t.true(foo('far', {}));
+});
+
+test('allows buffer in the required config', t => {
+  const buffer = new Buffer('robin');
+
+  t.true(argsert('<buffer>', buffer));
+});
+
+test('allows buffer in the optional config', t => {
+  const buffer = new Buffer('batgirl');
+
+  t.true(argsert('[buffer]', buffer));
+});

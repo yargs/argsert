@@ -23,7 +23,7 @@ module.exports = function argsert (typeConfig, ...args) {
     const observedType = Array.isArray(arg) ? 'array'
       : arg === null ? 'null'
         : arg instanceof Error ? 'error'
-          : arg instanceof Promise ? 'promise'
+          : isPromise(arg) ? 'promise'
             : typeof arg;
 
     const typesAtIndex = types[index];
@@ -98,4 +98,9 @@ function isOptional (arg) {
 
 function isRequired (arg) {
   return arg.match(/^<(\w+|\*)((?:\|(\w+))*?)>/);
+}
+
+// 'borrowed' from: https://github.com/then/is-promise/commit/ed0eaa4dec17597f0dae892a0472a9b7f459320d
+function isPromise (obj) {
+  return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }

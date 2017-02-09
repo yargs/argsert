@@ -42,7 +42,7 @@ module.exports = function argsert (typeConfig, ...args) {
     if ('optional' in typesAtIndex) {
       const optional = typesAtIndex.optional;
 
-      if (optional.indexOf('*') < 0 && optional.indexOf(observedType) < 0) {
+      if (arg !== undefined && optional.indexOf('*') < 0 && optional.indexOf(observedType) < 0) {
         throw new TypeError(errorMessage('optional'));
       }
     }
@@ -91,7 +91,9 @@ function positionName (index) {
 }
 
 function expectedTypes (types, kind) {
-  return types[kind].join(' or ');
+  return types[kind]
+    .concat(kind === 'optional' && types[kind].indexOf('undefined') < 0 ? 'undefined' : [])
+    .join(' or ');
 }
 
 function isOptional (arg) {

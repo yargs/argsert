@@ -10,11 +10,11 @@ test('does not throw exception if optional argument is not provided', async t =>
 test('throws exception if wrong type is provided for optional argument', t => {
   t.throws(
     () => argsert('[object|number]', 'hello'),
-    /Invalid first argument. Expected object or number but received string./
+    /Invalid first argument. Expected object or number or undefined but received string./
   );
   t.throws(
     argsertPromise('[object|number]', 'hello'),
-    /Invalid first argument. Expected object or number but received string./
+    /Invalid first argument. Expected object or number or undefined but received string./
   );
 });
 
@@ -85,6 +85,10 @@ test('allows wildcard to be used in optional configuration', async t => {
   t.true(await argsertPromise('[string] [*]', 'foo', {}));
 });
 
+test('allows undefined for optional arguments', t => {
+  t.true(argsert('[string] <*>', undefined, {}));
+});
+
 test('throws when the optional config has broken syntax', t => {
   t.throws(
     () => argsert('<*> [foo||bar]', 'baz', 'boo'),
@@ -119,14 +123,6 @@ test('allows rejected promise in the optional config', t => {
   t.true(argsert('[promise]', Promise.reject(new Error('no timeout')).catch(() => {})));
 });
 
-test('the arguments object can be passed in, spread', t => {
-  function foo () {
-    return argsert('[string|number] <object>', ...arguments);
-  }
-
-  t.true(foo('far', {}));
-});
-
 test('allows buffer in the required config', t => {
   const buffer = new Buffer('robin');
 
@@ -137,4 +133,31 @@ test('allows buffer in the optional config', t => {
   const buffer = new Buffer('batgirl');
 
   t.true(argsert('[buffer]', buffer));
+});
+
+test('the arguments object can be passed in, spread', t => {
+  function foo () {
+    return argsert('[string|number] <object>', ...arguments);
+  }
+
+  t.true(foo('far', {}));
+});
+
+test('Function.prototype.apply with the arguments object', t => {
+  function foo () {
+    return argsert.apply(this, arguments);
+  }
+
+  t.true(foo('[string|number] <object>', 'bar', {}));
+});
+
+test('Function.prototype.call with the arguments object spread', t => {
+  function foo () {
+    return argsert.call(this, ...arguments);
+  }
+
+  t.throws(
+    () => foo('[number] <object>', 'bar', {}),
+    /Invalid first argument. Expected number or undefined but received string./
+  );
 });

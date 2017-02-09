@@ -22,10 +22,10 @@ test('does not throw exception if optional argument is valid', t => {
   t.true(argsert('[object]', {foo: 'bar'}));
 });
 
-test('throws exception if required argument is not provided', t => {
+test('throws exception if required arguments are not provided', t => {
   t.throws(
-    () => argsert('<object>'),
-    /Not enough arguments provided. Expected 1 but received 0./
+    () => argsert('<object> <*>'),
+    /Not enough arguments provided. Expected 2 but received 0./
   );
 });
 

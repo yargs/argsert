@@ -31,20 +31,12 @@ module.exports = function argsert (typeConfig, ...args) {
     const typesAtIndex = types[index];
     const errorMessage = invalidArgMessage.bind(this, positionName(index), typesAtIndex, observedType);
 
-    if ('required' in typesAtIndex) {
-      const required = typesAtIndex.required;
-
-      if (required.indexOf(observedType) < 0 && required.indexOf('*') < 0) {
-        throw new TypeError(errorMessage('required'));
-      }
+    if (('required' in typesAtIndex) && isMissingFrom(typesAtIndex.required, observedType)) {
+      throw new TypeError(errorMessage('required'));
     }
 
-    if ('optional' in typesAtIndex) {
-      const optional = typesAtIndex.optional;
-
-      if (arg !== undefined && optional.indexOf('*') < 0 && optional.indexOf(observedType) < 0) {
-        throw new TypeError(errorMessage('optional'));
-      }
+    if (('optional' in typesAtIndex) && arg !== undefined && isMissingFrom(typesAtIndex.optional, observedType)) {
+      throw new TypeError(errorMessage('optional'));
     }
   });
 
@@ -71,6 +63,10 @@ function getTypes (typeConfig) {
       throw new Error(`Invalid type config in the ${positionName(index)} position.`);
     }
   }, {});
+}
+
+function isMissingFrom (types, observed) {
+  return types.indexOf(observed) < 0 && types.indexOf('*') < 0;
 }
 
 function compactArgs (args) {

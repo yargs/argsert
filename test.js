@@ -46,11 +46,11 @@ test('allows for any type if * is provided', t => {
   t.true(argsert('<*>', 'bar'));
 });
 
-test('should ignore trailing undefined values', t => {
+test('ignores trailing undefined values', t => {
   t.true(argsert('<*>', 'bar', undefined, undefined));
 });
 
-test('should not ignore undefined values that are not trailing', t => {
+test('does not ignore undefined values that are not trailing', t => {
   t.throws(
     () => argsert('<*>', 'bar', undefined, undefined, 33),
     /Too many arguments provided. Expected max 1 but received 4./

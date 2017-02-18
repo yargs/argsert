@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function argsert (typeConfig, ...args) {
+export default function argsert (typeConfig, ...args) {
   if (typeof typeConfig !== 'string' || (!isRequired(typeConfig) && !isOptional(typeConfig))) {
     args = [typeConfig];
     typeConfig = '';
@@ -41,7 +39,7 @@ module.exports = function argsert (typeConfig, ...args) {
   });
 
   return true;
-};
+}
 
 function getTypes (typeConfig) {
   return typeConfig.split(' ').reduce((result, str, index) => {

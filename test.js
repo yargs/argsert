@@ -1,17 +1,12 @@
 import test from 'ava';
-import argsert from './lib/';
-import argsertPromise from './lib/promise';
+import argsert from './src/';
+import argsertPromise from './src/promise';
 
-test('does not throw exception if optional argument is not provided', async t => {
+test('does not throw exception if optional argument is not provided', t => {
   t.true(argsert('[object]'));
-  t.true(await argsertPromise('[object]'));
 });
 
 test('throws exception if wrong type is provided for optional argument', t => {
-  t.throws(
-    () => argsert('[object|number]', 'hello'),
-    /Invalid first argument. Expected object or number or undefined but received string./
-  );
   t.throws(
     argsertPromise('[object|number]', 'hello'),
     /Invalid first argument. Expected object or number or undefined but received string./

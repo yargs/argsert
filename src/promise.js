@@ -1,8 +1,6 @@
-'use strict';
+import argsert from './';
 
-const argsert = require('./');
-
-module.exports = function argsertPromise (...args) {
+export default function argsertPromise (...args) {
   return new Promise((resolve, reject) => {
     try {
       return resolve(argsert(...args));
@@ -10,4 +8,4 @@ module.exports = function argsertPromise (...args) {
       return reject(err);
     }
   });
-};
+}

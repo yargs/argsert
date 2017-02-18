@@ -146,6 +146,14 @@ test('Function.prototype.apply with the arguments object', t => {
   t.true(foo('[string|number] <object>', 'bar', {}));
 });
 
+test('allows `this` to be the typeConfig string', t => {
+  function foo () {
+    return argsert.apply('<null|object> [number]', arguments);
+  }
+
+  t.true(foo({ bar: 'baz' }));
+});
+
 test('Function.prototype.call with the arguments object spread', t => {
   function foo () {
     return argsert.call(this, ...arguments);

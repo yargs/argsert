@@ -3,7 +3,7 @@ const OPTIONAL = 'optional';
 
 export default function argsert (typeConfig, ...args) {
   if (typeof typeConfig !== 'string' || (!isRequired(typeConfig) && !isOptional(typeConfig))) {
-    args = [typeConfig];
+    args = [typeConfig, ...args];
     typeConfig = '';
   }
 

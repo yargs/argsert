@@ -66,3 +66,20 @@ space-separated entries with the following syntax:
 `<object> <*>`:
 - the first argument *must* be an object literal
 - the second argument can be any type, but *must* be provided.
+
+## Live Example
+
+The following leverages `argsert` best because it is the most performant and easiest to read by:
+
+### setting `argsert`'s `this` to the `configurationString`
+
+```js
+function nodeStyleCallback (err, result) {
+  // ...
+  argsert.apply('<error|undefined|null> [object|string]', arguments)
+  // ...
+}
+```
+
+You can also look at [the tests](https://github.com/JaKXz/argsert/blob/master/test.js#L133) for other ways to invoke `argsert`.
+To learn more you can read about JS' functional-function methods: [`apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply), [`bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind), and [`call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call).

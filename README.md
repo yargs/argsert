@@ -1,4 +1,4 @@
-# argsert
+# argsert [![Build Status](https://travis-ci.org/JaKXz/argsert.svg?branch=master)](https://travis-ci.org/JaKXz/argsert) [![Coverage Status](https://coveralls.io/repos/github/JaKXz/argsert/badge.svg?branch=master)](https://coveralls.io/github/JaKXz/argsert?branch=master)
 > an argument validator [originally] for [`yargs`](https://github.com/yargs/yargs)
 
 ## API

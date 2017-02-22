@@ -55,15 +55,15 @@ allows for any type.
 
 space-separated entries with the following syntax:
 
-### `[optional arguments]`:
+### `[optional arguments]`
 
 `'[string|number] [object]'`:
 - the first argument can be a string OR a number, or undefined
 - the second argument can be an object literal, or undefined.
 
-### `<required arguments>`:
+### `<required arguments>`
 
-`<object> <*>`:
+`'<object> <*>'`:
 - the first argument *must* be an object literal
 - the second argument can be any type, but *must* be provided.
 

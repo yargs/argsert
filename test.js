@@ -140,7 +140,7 @@ test('the arguments object can be passed in, spread', t => {
 
 test('Function.prototype.apply with the arguments object', t => {
   function foo () {
-    return argsert.apply(this, arguments);
+    return argsert.apply(null, arguments);
   }
 
   t.true(foo('[string|number] <object>', 'bar', {}));
@@ -156,11 +156,11 @@ test('allows `this` to be the typeConfig string', t => {
 
 test('Function.prototype.call with the arguments object spread', t => {
   function foo () {
-    return argsert.call(this, ...arguments);
+    return argsert.call('[number] <object>', ...arguments);
   }
 
   t.throws(
-    () => foo('[number] <object>', 'bar', {}),
+    () => foo('bar', {}),
     /Invalid first argument. Expected number or undefined but received string./
   );
 });

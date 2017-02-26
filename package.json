@@ -20,9 +20,9 @@
   },
   "scripts": {
     "build": "babel src --out-dir lib",
-    "prepublish": "npm test",
     "pretest": "semistandard && npm run build",
-    "test": "cross-env NODE_ENV=test nyc ava"
+    "test": "cross-env NODE_ENV=test nyc ava",
+    "preversion": "npm test"
   },
   "ava": {
     "require": [

@@ -16,7 +16,7 @@
     "coveralls": "^2.11.16",
     "cross-env": "^3.1.4",
     "nyc": "^10.1.2",
-    "semistandard": "^9.2.1"
+    "semistandard": "^10.0.0"
   },
   "scripts": {
     "build": "babel src --out-dir lib",

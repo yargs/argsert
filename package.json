@@ -30,6 +30,16 @@
       "babel-register"
     ]
   },
+  "babel": {
+    "presets": [
+      ["env", { "targets": { "node": 4 } }]
+    ],
+    "env": {
+      "test": {
+        "plugins": ["istanbul"]
+      }
+    }
+  },
   "nyc": {
     "require": [
       "babel-register"

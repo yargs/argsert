@@ -7,7 +7,7 @@ test('does not throw exception if optional argument is not provided', t => {
 });
 
 test('throws exception if wrong type is provided for optional argument', t => {
-  t.throws(
+  return t.throws(
     argsertPromise('[object|number]', 'hello'),
     /Invalid first argument. Expected object or number or undefined but received string./
   );

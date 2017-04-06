@@ -37,3 +37,12 @@ test('Function.prototype.call with the arguments object spread', t => {
     /Invalid first argument. Expected number or undefined but received string./
   );
 });
+
+test('Function.prototype.bind using configurationString', t => {
+  const foo = argsert.bind('[number]');
+
+  return t.throws(
+    foo({}),
+    /Invalid first argument. Expected number or undefined but received object./
+  );
+});

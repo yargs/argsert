@@ -1,7 +1,8 @@
 import test from 'ava';
 import argsert from './src/promise';
 
-// NOTE: these examples use the promise API for coverage purposes only.
+// NOTE: these examples use the promise API for coverage purposes only, but you
+// can use them as documented for either one of the APIs.
 
 test('the arguments object can be passed in, spread', async t => {
   function foo () {

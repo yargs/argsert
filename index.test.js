@@ -1,14 +1,13 @@
 import test from 'ava';
 import argsert from './src/';
-import argsertPromise from './src/promise';
 
 test('does not throw exception if optional argument is not provided', t => {
   t.true(argsert('[object]'));
 });
 
 test('throws exception if wrong type is provided for optional argument', t => {
-  return t.throws(
-    argsertPromise('[object|number]', 'hello'),
+  t.throws(
+    () => argsert('[object|number]', 'hello'),
     /Invalid first argument. Expected object or number or undefined but received string./
   );
 });
@@ -76,11 +75,11 @@ test('allows empty configuration to accept no arguments', t => {
   t.true(argsert(''));
 });
 
-test('allows wildcard to be used in optional configuration', async t => {
-  t.true(await argsertPromise('[string] [*]', 'foo', {}));
+test('allows wildcard to be used in optional configuration', t => {
+  t.true(argsert('[string] [*]', 'foo', {}));
 });
 
-test('allows undefined for optional arguments', t => {
+test('allows undefined for otional arguments', t => {
   t.true(argsert('[string] <*>', undefined, {}));
 });
 
@@ -130,37 +129,10 @@ test('allows buffer in the optional config', t => {
   t.true(argsert('[buffer]', buffer));
 });
 
-test('the arguments object can be passed in, spread', t => {
-  function foo () {
-    return argsert('[string|number] <object>', ...arguments);
-  }
-
-  t.true(foo('far', {}));
-});
-
-test('Function.prototype.apply with the arguments object', t => {
-  function foo () {
-    return argsert.apply(null, arguments);
-  }
-
-  t.true(foo('[string|number] <object>', 'bar', {}));
-});
-
 test('allows `this` to be the typeConfig string', t => {
   function foo () {
     return argsert.apply('<null|object> [number]', arguments);
   }
 
   t.true(foo({ bar: 'baz' }));
-});
-
-test('Function.prototype.call with the arguments object spread', t => {
-  function foo () {
-    return argsert.call('[number] <object>', ...arguments);
-  }
-
-  t.throws(
-    () => foo('bar', {}),
-    /Invalid first argument. Expected number or undefined but received string./
-  );
 });

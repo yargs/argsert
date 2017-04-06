@@ -81,5 +81,5 @@ function nodeStyleCallback (err, result) {
 }
 ```
 
-You can also look at [the tests](https://github.com/JaKXz/argsert/blob/master/test.js#L133) for other ways to invoke `argsert`.
+You can also look at [the example tests](https://github.com/JaKXz/argsert/blob/master/examples.test.js) for other ways to invoke `argsert`.
 To learn more you can read about JS' function methods: [`apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply), [`bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind), and [`call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call).

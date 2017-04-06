@@ -1,9 +1,9 @@
 import argsert from './';
 
-export default function argsertPromise (...args) {
+export default function argsertPromise () {
   return new Promise((resolve, reject) => {
     try {
-      return resolve(argsert.call(this, ...args));
+      return resolve(argsert.apply(this, arguments));
     } catch (err) {
       return reject(err);
     }

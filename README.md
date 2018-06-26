@@ -1,15 +1,16 @@
-# argsert [![Build Status](https://travis-ci.org/JaKXz/argsert.svg?branch=master)](https://travis-ci.org/JaKXz/argsert) [![Coverage Status](https://coveralls.io/repos/github/JaKXz/argsert/badge.svg?branch=master)](https://coveralls.io/github/JaKXz/argsert?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/JaKXz/argsert.svg)](https://greenkeeper.io/)
+# argsert [![Build Status](https://travis-ci.org/yargs/argsert.svg?branch=master)](https://travis-ci.org/yargs/argsert) [![Coverage Status](https://coveralls.io/repos/github/yargs/argsert/badge.svg?branch=master)](https://coveralls.io/github/yargs/argsert?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/yargs/argsert.svg)](https://greenkeeper.io/)
+
 > an argument validator [originally] for [`yargs`](https://github.com/yargs/yargs)
 
 ## API
 
 ```js
-import argsert from 'argsert'
+import argsert from 'argsert';
 
-let passed
+let passed;
 
 try {
-  passed = argsert([configurationString], arguments)
+  passed = argsert([configurationString], arguments);
 } catch (err) {
   if (err instanceof TypeError) {
     // a type was missing or incorrectly given
@@ -23,13 +24,13 @@ try {
 ### Promise API
 
 ```js
-import argsertPromise from 'argsert/promise'
+import argsertPromise from 'argsert/promise';
 
 argsertPromise([configurationString], arguments)
-  .then((passed) => passed)
-  .catch((err) => {
+  .then(passed => passed)
+  .catch(err => {
     // same error as above
-  })
+  });
 ```
 
 ## Available Types
@@ -58,14 +59,16 @@ space-separated entries with the following syntax:
 ### `[optional arguments]`
 
 `'[string|number] [object]'`:
+
 - the first argument can be a string OR a number, or undefined
 - the second argument can be an object literal, or undefined.
 
 ### `<required arguments>`
 
 `'<object> <*>'`:
-- the first argument *must* be an object literal
-- the second argument can be any type, but *must* be provided.
+
+- the first argument _must_ be an object literal
+- the second argument can be any type, but _must_ be provided.
 
 ## Live Example
 
@@ -74,12 +77,12 @@ The following leverages `argsert` best because it is the most performant and eas
 ### setting `argsert`'s `this` to the `configurationString`
 
 ```js
-function nodeStyleCallback (err, result) {
+function nodeStyleCallback(err, result) {
   // ...
-  argsert.apply('<error|undefined|null> [object|string]', arguments)
+  argsert.apply('<error|undefined|null> [object|string]', arguments);
   // ...
 }
 ```
 
-You can also look at [the example tests](https://github.com/JaKXz/argsert/blob/master/promise.test.js) for other ways to invoke `argsert`.
+You can also look at [the example tests](https://github.com/yargs/argsert/blob/master/promise.test.js) for other ways to invoke `argsert`.
 To learn more you can read about JS' function methods: [`apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply), [`bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind), and [`call`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call).

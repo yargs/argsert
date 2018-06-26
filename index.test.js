@@ -1,5 +1,5 @@
 import test from 'ava';
-import argsert from './src/';
+import argsert from './src';
 
 test('does not throw exception if optional argument is not provided', t => {
   t.true(argsert('[object]'));
@@ -13,7 +13,7 @@ test('throws exception if wrong type is provided for optional argument', t => {
 });
 
 test('does not throw exception if optional argument is valid', t => {
-  t.true(argsert('[object]', {foo: 'bar'}));
+  t.true(argsert('[object]', { foo: 'bar' }));
 });
 
 test('throws exception if required arguments are not provided', t => {
@@ -114,23 +114,28 @@ test('allows promise in the required config', t => {
 });
 
 test('allows rejected promise in the optional config', t => {
-  t.true(argsert('[promise]', Promise.reject(new Error('no timeout')).catch(() => {})));
+  t.true(
+    argsert(
+      '[promise]',
+      Promise.reject(new Error('no timeout')).catch(() => {})
+    )
+  );
 });
 
 test('allows buffer in the required config', t => {
-  const buffer = new Buffer('robin');
+  const buffer = Buffer.from([]);
 
   t.true(argsert('<buffer>', buffer));
 });
 
 test('allows buffer in the optional config', t => {
-  const buffer = new Buffer('batgirl');
+  const buffer = Buffer.from([]);
 
   t.true(argsert('[buffer]', buffer));
 });
 
 test('allows `this` to be the typeConfig string', t => {
-  function foo () {
+  function foo() {
     return argsert.apply('<null|object> [number]', arguments);
   }
 

@@ -1,0 +1,4 @@
+package.json
+.nyc_output
+coverage
+lib

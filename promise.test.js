@@ -5,7 +5,7 @@ import argsert from './src/promise';
 // can use them as documented for either one of the APIs.
 
 test('the arguments object can be passed in, spread', async t => {
-  function foo () {
+  function foo() {
     return argsert('[string|number] <object>', ...arguments);
   }
 
@@ -13,15 +13,15 @@ test('the arguments object can be passed in, spread', async t => {
 });
 
 test('Function.prototype.apply with the arguments object', async t => {
-  function foo () {
-    return argsert.apply(null, arguments);
+  function foo() {
+    return argsert(...arguments);
   }
 
   t.true(await foo('[string|number] <object>', 'bar', {}));
 });
 
 test('allows `this` to be the typeConfig string', async t => {
-  function foo () {
+  function foo() {
     return argsert.apply('<null|object> [number]', arguments);
   }
 
@@ -29,7 +29,7 @@ test('allows `this` to be the typeConfig string', async t => {
 });
 
 test('Function.prototype.call with the arguments object spread', t => {
-  function foo () {
+  function foo() {
     return argsert.call('[number] <object>', ...arguments);
   }
 

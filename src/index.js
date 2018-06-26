@@ -1,6 +1,12 @@
 const REQUIRED = 'required';
 const OPTIONAL = 'optional';
 
+function optionalUnknownArity(types, lastKey) {
+  console.log(Object.is(types[lastKey][OPTIONAL], ['*']))
+
+  return types[lastKey] && Object.is(types[lastKey][OPTIONAL], ['*'])
+}
+
 export default function argsert(typeConfig, ...args) {
   if (
     typeof typeConfig !== 'string' ||
@@ -23,7 +29,7 @@ export default function argsert(typeConfig, ...args) {
     );
   }
 
-  if (args.length > configuredKeys.length) {
+  if (args.length > configuredKeys.length && !optionalUnknownArity(types, configuredKeys.length - 1)) {
     throw new Error(
       `Too many arguments provided. Expected max ${
         configuredKeys.length

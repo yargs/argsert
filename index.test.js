@@ -56,6 +56,10 @@ test('does not ignore undefined values that are not trailing', t => {
   );
 });
 
+test.only('allows optional unknown arity', t => {
+  t.true(argsert('[*]', 1, 2, 3, 4, 5));
+});
+
 test('supports null as special type', t => {
   t.true(argsert('<null>', null));
 });

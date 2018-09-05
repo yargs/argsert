@@ -1,4 +1,4 @@
-# argsert [![Build Status](https://travis-ci.org/yargs/argsert.svg?branch=master)](https://travis-ci.org/yargs/argsert) [![Coverage Status](https://coveralls.io/repos/github/yargs/argsert/badge.svg?branch=master)](https://coveralls.io/github/yargs/argsert?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/yargs/argsert.svg)](https://greenkeeper.io/)
+# argsert [![Build Status](https://travis-ci.org/yargs/argsert.svg?branch=master)](https://travis-ci.org/yargs/argsert) [![Coverage Status](https://coveralls.io/repos/github/yargs/argsert/badge.svg?branch=master)](https://coveralls.io/github/yargs/argsert?branch=master)
 
 > an argument validator [originally] for [`yargs`](https://github.com/yargs/yargs)
 
